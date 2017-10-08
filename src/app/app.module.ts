@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { NavegacaoComponent } from './componentes/navegacao/navegacao.component';
@@ -23,6 +25,10 @@ import { TimeEditarComponent } from './componentes/time/time-editar/time-editar.
 import { FaseListComponent } from './componentes/fase/fase-list/fase-list.component';
 import { FaseNovoComponent } from './componentes/fase/fase-novo/fase-novo.component';
 import { FaseEditarComponent } from './componentes/fase/fase-editar/fase-editar.component';
+import { TipoService } from './services/tipo/tipo.service';
+import { EndpointService } from './services/endpoint/endpoint.service';
+
+
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -70,9 +76,11 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [TipoService, EndpointService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
