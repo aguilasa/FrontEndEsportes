@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { TipoModel } from '../../../models/tipo/tipo-model';
+import { TipoService } from '../../../services/tipo/tipo.service';
 
 @Component({
   selector: 'app-tipo-novo',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TipoNovoComponent implements OnInit {
 
-  constructor() { }
+  model = new TipoModel('');
+
+  constructor(private tipoSvc: TipoService, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  addTipo() {
+    this.tipoSvc
+      .addTipo(this.model)
+      .subscribe(() => this.goBack());
+  }
+
+  goBack() {
+    this.router.navigate(['/tipo']);
+  }
+
+  isValidForm() {
+    return this.model.nome !== '';
   }
 
 }

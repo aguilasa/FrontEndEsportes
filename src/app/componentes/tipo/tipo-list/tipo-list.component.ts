@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TipoService } from '../../../services/tipo/tipo.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { TipoService } from '../../../services/tipo/tipo.service';
 export class TipoListComponent implements OnInit {
   tipos = [];
 
-  constructor(private tipoSvc: TipoService) { }
+  constructor(private tipoSvc: TipoService, private router: Router) { }
 
   ngOnInit() {
     this.getTipos();
@@ -21,6 +22,10 @@ export class TipoListComponent implements OnInit {
       .subscribe(tipos => {
         this.tipos = tipos;
       });
+  }
+
+  newTipo() {
+    this.router.navigate(['/tipo/novo']);
   }
 
 }
