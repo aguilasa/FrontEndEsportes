@@ -1,3 +1,33 @@
-<p>
-  modalidade works!
-</p>
+<p-panel header="Modalidades">
+  <p-dataTable [value]="modalidades" selectionMode="single" [(selection)]="selecionado" (onRowSelect)="onRowSelect($event)" [paginator]="true"
+    rows="15" [responsive]="true">
+    <p-header>Lista de Modalidades</p-header>
+    <p-column field="id" header="Id" [sortable]="true" [style]="{'width': '100px', 'text-align': 'left'}"></p-column>
+    <p-column field="nome" header="Nome" [sortable]="true" [style]="{'text-align': 'left'}"></p-column>
+    <p-footer>
+      <div class="ui-helper-clearfix" style="width:100%">
+        <button type="button" pButton icon="fa-plus" style="float:left" (click)="mostrarDialogoIncluir()" label="Incluir"></button>
+      </div>
+    </p-footer>
+  </p-dataTable>
+
+  <p-dialog header="Detalhes" [(visible)]="mostrarDialogo" [responsive]="true" showEffect="fade" [modal]="true">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="modalidade">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+          <label for="nome">Nome</label>
+        </div>
+        <div class="ui-grid-col-8">
+          <input pInputText id="nome" [(ngModel)]="modalidade.nome" />
+        </div>
+      </div>
+    </div>
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button *ngIf="!novoTipo" type="button" pButton icon="fa-close" (click)="deletar()" label="Deletar"></button>
+        <button type="button" pButton icon="fa-check" (click)="salvar()" label="Salvar"></button>
+      </div>
+    </p-footer>
+  </p-dialog>
+
+</p-panel>

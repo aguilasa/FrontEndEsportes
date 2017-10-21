@@ -15,10 +15,12 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
     this.items = [
       {
-        label: 'Times'
+        label: 'Times',
+        routerLink: ['time']
       },
       {
-        label: 'Modalidades'
+        label: 'Modalidades',
+        routerLink: ['modalidade']
       },
       {
         label: 'Fases'
@@ -31,7 +33,8 @@ export class MenuComponent implements OnInit {
         label: 'Jogos'
       },
       {
-        label: 'Situações'
+        label: 'Situações',
+        routerLink: ['situacao']
       }
     ];
   }
