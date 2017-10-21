@@ -1,9 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-.panel-heading h3.custom {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: normal;
-    width: 75%;
-    padding-top: 8px;
+html,
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.bodyPage {
+    width: 978px;
+    text-align: left;
+    margin: 0 auto;
 }
