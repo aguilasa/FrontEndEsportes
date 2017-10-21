@@ -3,7 +3,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MenubarModule, MenuItem, PanelModule, InputTextModule, ButtonModule, DataTableModule, DialogModule } from 'primeng/primeng';
+import {
+  MenubarModule, MenuItem, PanelModule, InputTextModule, ButtonModule, DataTableModule, DialogModule, GrowlModule, ContextMenuModule,
+  ConfirmDialogModule
+} from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -35,7 +38,10 @@ import { TimeComponent } from './components/time/time.component';
     InputTextModule,
     ButtonModule,
     DataTableModule,
-    DialogModule
+    DialogModule,
+    GrowlModule,
+    ContextMenuModule,
+    ConfirmDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

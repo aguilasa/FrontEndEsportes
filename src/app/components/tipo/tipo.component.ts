@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PanelModule } from 'primeng/primeng';
+import { PanelModule, MenuItem, Message, ConfirmationService } from 'primeng/primeng';
 import { TipoService } from '../../services/tipo.service';
 import { Tipo } from '../../models/tipo';
 
@@ -7,22 +7,28 @@ import { Tipo } from '../../models/tipo';
   selector: 'app-tipo',
   templateUrl: './tipo.component.html',
   styleUrls: ['./tipo.component.css'],
-  providers: [TipoService]
+  providers: [TipoService, ConfirmationService]
 })
 export class TipoComponent implements OnInit {
 
+  items: MenuItem[];
   tipos: Tipo[];
   mostrarDialogo: boolean;
   tipo: Tipo = new Tipo();
   selecionado: Tipo;
   novoTipo: boolean;
 
-  constructor(private tipoSvc: TipoService) { }
+  constructor(private tipoSvc: TipoService, private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.tipoSvc.getTipos().then(tipos => {
       this.tipos = tipos
     });
+
+    this.items = [
+      { label: 'Visualizar', icon: 'fa-search', command: (event) => this.mostrar(this.selecionado) },
+      { label: 'Excluir', icon: 'fa-close', command: (event) => this.confirmar() }
+    ];
   }
 
   mostrarDialogoIncluir() {
@@ -58,7 +64,7 @@ export class TipoComponent implements OnInit {
   }
 
   deletar() {
-    this.tipoSvc.delTipo(this.tipo).then(() => {
+    this.tipoSvc.delTipo(this.selecionado).then(() => {
       let index = this.procurarTipoSelecionado();
       this.tipos = this.tipos.filter((val, i) => i != index);
       this.tipo = null;
@@ -66,9 +72,26 @@ export class TipoComponent implements OnInit {
     });
   }
 
+  confirmar() {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir o registro?',
+      accept: () => {
+        this.deletar();
+      }
+    });
+  }
+
   onRowSelect(event) {
+    this.mostrar(event.data);
+  }
+
+  setarTipo(tipo: Tipo) {
     this.novoTipo = false;
-    this.tipo = this.clonarTipo(event.data);
+    this.tipo = this.clonarTipo(tipo);
+  }
+
+  mostrar(tipo: Tipo) {
+    this.setarTipo(tipo);
     this.mostrarDialogo = true;
   }
 
