@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {
   MenubarModule, MenuItem, PanelModule, InputTextModule, ButtonModule, DataTableModule, DialogModule, GrowlModule, ContextMenuModule,
-  ConfirmDialogModule
+  ConfirmDialogModule, DropdownModule
 } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
@@ -17,6 +17,8 @@ import { RoutingModule } from './routers-app';
 import { ModalidadeComponent } from './components/modalidade/modalidade.component';
 import { SituacaoComponent } from './components/situacao/situacao.component';
 import { TimeComponent } from './components/time/time.component';
+import { FaseComponent } from './components/fase/fase.component';
+import { JogoComponent } from './components/jogo/jogo.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { TimeComponent } from './components/time/time.component';
     TipoComponent,
     ModalidadeComponent,
     SituacaoComponent,
-    TimeComponent
+    TimeComponent,
+    FaseComponent,
+    JogoComponent
   ],
   imports: [
     RoutingModule,
@@ -41,7 +45,8 @@ import { TimeComponent } from './components/time/time.component';
     DialogModule,
     GrowlModule,
     ContextMenuModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

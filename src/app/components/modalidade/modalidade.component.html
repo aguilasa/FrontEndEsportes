@@ -1,6 +1,6 @@
 <p-panel header="Modalidades">
   <p-dataTable [value]="modalidades" selectionMode="single" [(selection)]="selecionado" (onRowSelect)="onRowSelect($event)" [paginator]="true"
-    rows="15" [responsive]="true">
+    rows="15" [responsive]="true" [contextMenu]="cm">
     <p-header>Lista de Modalidades</p-header>
     <p-column field="id" header="Id" [sortable]="true" [style]="{'width': '100px', 'text-align': 'left'}"></p-column>
     <p-column field="nome" header="Nome" [sortable]="true" [style]="{'text-align': 'left'}"></p-column>
@@ -31,3 +31,11 @@
   </p-dialog>
 
 </p-panel>
+
+<p-contextMenu #cm [model]="items"></p-contextMenu>
+<p-confirmDialog header="Confirmação" icon="fa fa-question-circle" width="425" #cd>
+  <p-footer>
+    <button type="button" pButton icon="fa-close" label="Não" (click)="cd.reject()"></button>
+    <button type="button" pButton icon="fa-check" label="Sim" (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>

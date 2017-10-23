@@ -1,0 +1,6 @@
+<p-panel header="Fases">
+  <h3 class="first">Modalidade</h3>
+  <p-dropdown [options]="modalidades" [(ngModel)]="modalidadeSelecionada" placeholder="Selecione uma modalidade" (onChange)="onChange($event)"
+    (onBlur)="onBlur()"></p-dropdown>
+  <button pButton type="button" icon="fa-check" iconPos="left" label="Gerar Fases" [disabled]="modalidadeSelecionada == null"></button>
+</p-panel>

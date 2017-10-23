@@ -23,14 +23,16 @@ export class MenuComponent implements OnInit {
         routerLink: ['modalidade']
       },
       {
-        label: 'Fases'
+        label: 'Fases',
+        routerLink: ['fase']
       },
       {
         label: 'Tipos',
         routerLink: ['tipo']
       },
       {
-        label: 'Jogos'
+        label: 'Jogos',
+        routerLink: ['jogo']
       },
       {
         label: 'Situações',

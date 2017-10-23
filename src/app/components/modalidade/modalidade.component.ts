@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PanelModule } from 'primeng/primeng';
+import { PanelModule, MenuItem, Message, ConfirmationService } from 'primeng/primeng';
 import { ModalidadeService } from '../../services/modalidade.service';
 import { Modalidade } from '../../models/modalidade';
 
@@ -7,22 +7,28 @@ import { Modalidade } from '../../models/modalidade';
   selector: 'app-modalidade',
   templateUrl: './modalidade.component.html',
   styleUrls: ['./modalidade.component.css'],
-  providers: [ModalidadeService]
+  providers: [ModalidadeService, ConfirmationService]
 })
 export class ModalidadeComponent implements OnInit {
 
+  items: MenuItem[];
   modalidades: Modalidade[];
   mostrarDialogo: boolean;
   modalidade: Modalidade = new Modalidade();
   selecionado: Modalidade;
   novoModalidade: boolean;
 
-  constructor(private modalidadeSvc: ModalidadeService) { }
+  constructor(private modalidadeSvc: ModalidadeService, private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.modalidadeSvc.getModalidades().then(modalidades => {
       this.modalidades = modalidades
     });
+
+    this.items = [
+      { label: 'Visualizar', icon: 'fa-search', command: (event) => this.mostrar(this.selecionado) },
+      { label: 'Excluir', icon: 'fa-close', command: (event) => this.confirmar() }
+    ];
   }
 
   mostrarDialogoIncluir() {
@@ -58,7 +64,7 @@ export class ModalidadeComponent implements OnInit {
   }
 
   deletar() {
-    this.modalidadeSvc.delModalidade(this.modalidade).then(() => {
+    this.modalidadeSvc.delModalidade(this.selecionado).then(() => {
       let index = this.procurarModalidadeSelecionado();
       this.modalidades = this.modalidades.filter((val, i) => i != index);
       this.modalidade = null;
@@ -66,9 +72,26 @@ export class ModalidadeComponent implements OnInit {
     });
   }
 
+  confirmar() {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir o registro?',
+      accept: () => {
+        this.deletar();
+      }
+    });
+  }
+
   onRowSelect(event) {
+    this.mostrar(event.data);
+  }
+
+  setarModalidade(modalidade: Modalidade) {
     this.novoModalidade = false;
-    this.modalidade = this.clonarModalidade(event.data);
+    this.modalidade = this.clonarModalidade(modalidade);
+  }
+
+  mostrar(modalidade: Modalidade) {
+    this.setarModalidade(modalidade);
     this.mostrarDialogo = true;
   }
 
