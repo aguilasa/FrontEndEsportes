@@ -1,3 +1,21 @@
-<p>
-  jogo works!
-</p>
+<p-panel header="Jogos">
+  <h3 class="first">Modalidade</h3>
+  <p-dropdown [options]="modalidades" [(ngModel)]="selecionada" placeholder="Selecione uma modalidade" (onChange)="changeModalidade($event)"></p-dropdown>
+
+  <div *ngIf="items && items.length > 0">
+    <h3>Fases</h3>
+    <p-steps [model]="items"></p-steps>
+
+    <h3>Times</h3>
+    <p-pickList [source]="origem" [target]="destino" sourceHeader="Disponíveis" targetHeader="Selecionados" [responsive]="true"
+      [sourceStyle]="{'height':'200px'}" [targetStyle]="{'height':'200px'}">
+      <ng-template let-time pTemplate="item">
+        <div class="ui-helper-clearfix">
+          <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{time.nome}}</div>
+        </div>
+      </ng-template>
+    </p-pickList>
+
+
+  </div>
+</p-panel>

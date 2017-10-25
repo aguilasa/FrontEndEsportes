@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {
   MenubarModule, MenuItem, PanelModule, InputTextModule, ButtonModule, DataTableModule, DialogModule, GrowlModule, ContextMenuModule,
-  ConfirmDialogModule, DropdownModule, StepsModule, CheckboxModule
+  ConfirmDialogModule, DropdownModule, StepsModule, CheckboxModule, PickListModule
 } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
@@ -48,7 +48,8 @@ import { JogoComponent } from './components/jogo/jogo.component';
     ConfirmDialogModule,
     DropdownModule,
     StepsModule,
-    CheckboxModule
+    CheckboxModule,
+    PickListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
