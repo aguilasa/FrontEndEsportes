@@ -1,26 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { PanelModule, MenuItem, Message, ConfirmationService, DropdownModule, SelectItem } from 'primeng/primeng';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { PanelModule, MenuItem, Message, ConfirmationService, DropdownModule, SelectItem, StepsModule, CheckboxModule } from 'primeng/primeng';
 import { ModalidadeService } from '../../services/modalidade.service';
+import { FaseService } from '../../services/fase.service';
 import { Modalidade } from '../../models/modalidade';
+import { Fase } from '../../models/fase';
 
 
 @Component({
   selector: 'app-fase',
   templateUrl: './fase.component.html',
   styleUrls: ['./fase.component.css'],
-  providers: [ModalidadeService, ConfirmationService]
+  providers: [ModalidadeService, FaseService, ConfirmationService],
+  encapsulation: ViewEncapsulation.None
 })
 export class FaseComponent implements OnInit {
 
   modalidades: SelectItem[];
-  modalidadeSelecionada: any;
+  selecionada: any;
+  items: MenuItem[];
+  fases: Fase[];
 
-  constructor(private modalidadeSvc: ModalidadeService) {
+  constructor(private modalidadeSvc: ModalidadeService, private faseSvc: FaseService) {
     this.loadModalidades();
   }
 
   ngOnInit() {
-
+    this.items = [];
   }
 
   private loadModalidades() {
@@ -30,17 +35,21 @@ export class FaseComponent implements OnInit {
       modalidades.forEach(modalidade => {
         this.modalidades.push({ label: modalidade.nome, value: modalidade });
       });
-
     });
   }
 
   onChange(e) {
-    console.log(this.modalidadeSelecionada);
-    console.log(e.value);
-  }
+    this.fases = [];
+    this.items = [];
+    let id = e.value.id;
+    if (id == null) return;
 
-  onBlur() {
-    console.log(this.modalidadeSelecionada);
+    this.faseSvc.getFasesByModalidadeId(id).then(fases => {
+      this.fases = fases;
+      fases.forEach(fase => {
+        this.items.push({ label: fase.nome });
+      });
+    });
   }
 
 }
