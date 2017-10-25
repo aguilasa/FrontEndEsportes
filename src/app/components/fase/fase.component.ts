@@ -16,11 +16,11 @@ import { Fase } from '../../models/fase';
 export class FaseComponent implements OnInit {
 
   modalidades: SelectItem[];
-  selecionada: any;
+  selecionada: Modalidade;
   items: MenuItem[];
   fases: Fase[];
 
-  constructor(private modalidadeSvc: ModalidadeService, private faseSvc: FaseService) {
+  constructor(private modalidadeSvc: ModalidadeService, private faseSvc: FaseService, private confirmationService: ConfirmationService) {
     this.loadModalidades();
   }
 
@@ -45,6 +45,33 @@ export class FaseComponent implements OnInit {
     if (id == null) return;
 
     this.faseSvc.getFasesByModalidadeId(id).then(fases => {
+      this.fases = fases;
+      fases.forEach(fase => {
+        this.items.push({ label: fase.nome });
+      });
+    });
+  }
+
+  clickGerar() {
+    if (this.fases.length > 0) {
+      this.confirmationService.confirm({
+        message: 'Deseja regerar as fases?',
+        accept: () => {
+          this.gerar();
+        }
+      });
+    } else {
+      this.gerar();
+    }
+  }
+
+  gerar() {
+    let id = this.selecionada ? this.selecionada.id : null;
+    if (id == null) return;
+
+    this.fases = [];
+    this.items = [];
+    this.faseSvc.genFasesByModalidadeId(id).then(fases => {
       this.fases = fases;
       fases.forEach(fase => {
         this.items.push({ label: fase.nome });

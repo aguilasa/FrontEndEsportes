@@ -1,10 +1,17 @@
 <p-panel header="Fases">
   <h3 class="first">Modalidade</h3>
   <p-dropdown [options]="modalidades" [(ngModel)]="selecionada" placeholder="Selecione uma modalidade" (onChange)="onChange($event)"></p-dropdown>
-  <button pButton type="button" icon="fa-check" iconPos="left" label="Gerar Fases" [disabled]="selecionada == null"></button>
+  <button pButton type="button" icon="fa-check" iconPos="left" label="Gerar Fases" [disabled]="selecionada == null" (click)="clickGerar()"></button>
 
   <div *ngIf="items && items.length > 0">
     <h3>Fases</h3>
     <p-steps [model]="items"></p-steps>
   </div>
 </p-panel>
+
+<p-confirmDialog header="Confirmação" icon="fa fa-question-circle" width="425" #cd>
+  <p-footer>
+    <button type="button" pButton icon="fa-close" label="Não" (click)="cd.reject()"></button>
+    <button type="button" pButton icon="fa-check" label="Sim" (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>

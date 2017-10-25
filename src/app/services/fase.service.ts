@@ -21,4 +21,12 @@ export class FaseService extends Base {
       });
   }
 
+  public genFasesByModalidadeId(id: number) {
+    return this.http.post(this.getUrlBase().concat(BASE).concat('generate/').concat(String(id)), {})
+      .toPromise()
+      .then(res => {
+        return <Fase[]>res.json()
+      });
+  }
+
 }
