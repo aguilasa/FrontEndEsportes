@@ -6,12 +6,14 @@ import { Modalidade } from '../../models/modalidade';
 import { Fase } from '../../models/fase';
 import { TimeService } from '../../services/time.service';
 import { Time } from '../../models/time';
+import { JogoService } from '../../services/jogo.service';
+import { Jogo } from '../../models/jogo';
 
 @Component({
   selector: 'app-jogo',
   templateUrl: './jogo.component.html',
   styleUrls: ['./jogo.component.css'],
-  providers: [ModalidadeService, FaseService, TimeService, ConfirmationService],
+  providers: [ModalidadeService, FaseService, TimeService, JogoService, ConfirmationService],
   encapsulation: ViewEncapsulation.None
 })
 export class JogoComponent implements OnInit {
@@ -23,12 +25,14 @@ export class JogoComponent implements OnInit {
   times: Time[];
   origem: Time[];
   destino: Time[];
+  mostrarTimes: boolean;
 
   constructor(
     private modalidadeSvc: ModalidadeService,
     private faseSvc: FaseService,
     private confirmationService: ConfirmationService,
-    private timeSvc: TimeService) {
+    private timeSvc: TimeService,
+    private jogoSvc: JogoService) {
     this.loadModalidades();
   }
 
@@ -73,8 +77,40 @@ export class JogoComponent implements OnInit {
   }
 
   loadJogos() {
+    this.mostrarTimes = false;
+    this.jogoSvc.getJogosByFaseId(this.fases[0].id).then(jogos => {
+      if (jogos.length == 0) {
+        this.origem = [...this.times];
+        this.destino = [];
+        this.mostrarTimes = true;
+      }
+    });
+  }
+
+  gravar() {
+    console.log(this.destino);
+  }
+
+  recarregar() {
     this.origem = [...this.times];
     this.destino = [];
+  }
+
+  moveToTarget(e) {
+    let items = e.items;
+    let ajustar = false;
+
+    while (this.destino.length > 8) {
+      ajustar = true;
+      let time = items.pop();
+      let index = this.destino.indexOf(time);
+      this.destino = this.destino.filter((val, i) => i != index);
+    }
+
+    if (ajustar) {
+      this.origem = [...this.times];
+      this.origem = this.origem.filter((value) => this.destino.indexOf(value) == -1);
+    }
   }
 
 }

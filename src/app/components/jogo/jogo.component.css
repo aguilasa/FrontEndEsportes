@@ -24,3 +24,11 @@
 .ui-steps.steps-custom .ui-steps-item .ui-steps-title {
     color: #555555;
 }
+
+.ui-button {
+    width: 130px;
+}
+
+div.ui-picklist-target-wrapper div.ui-picklist-filter-container {
+    display: none;
+}

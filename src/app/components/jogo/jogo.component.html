@@ -6,17 +6,21 @@
     <h3>Fases</h3>
     <p-steps [model]="items"></p-steps>
 
-    <h3>Times</h3>
-    <p-pickList [source]="origem" [target]="destino" sourceHeader="Disponíveis" targetHeader="Selecionados" [responsive]="true"
-      [sourceStyle]="{'height':'200px'}" [targetStyle]="{'height':'200px'}">
-      <ng-template let-time pTemplate="item">
-        <div class="ui-helper-clearfix">
-          <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{time.nome}}</div>
-        </div>
-      </ng-template>
-    </p-pickList>
-    <br>
-    <button pButton type="button" icon="fa-check" iconPos="left" label="Gravar" (click)="gravar()" [disabled]="destino.length < 8"></button>
+    <div *ngIf="mostrarTimes">
+      <h3>Times</h3>
+      <p-pickList [source]="origem" [target]="destino" sourceHeader="Disponíveis" targetHeader="Selecionados" [responsive]="true"
+        [sourceStyle]="{'height':'200px'}" [targetStyle]="{'height':'200px'}" filterBy="nome" [showSourceControls]="false"
+        (onMoveToTarget)="moveToTarget($event)">
+        <ng-template let-time pTemplate="item">
+          <div class="ui-helper-clearfix">
+            <div style="font-size:14px;float:left;margin:5px">{{time.nome}}</div>
+          </div>
+        </ng-template>
+      </p-pickList>
+      <br>
+      <button pButton type="button" icon="fa-close" iconPos="left" label="Recarregar" (click)="recarregar()"></button>
+      <button pButton type="button" icon="fa-check" iconPos="left" label="Gravar" (click)="gravar()" [disabled]="destino.length < 8"></button>
+    </div>
 
   </div>
 </p-panel>
