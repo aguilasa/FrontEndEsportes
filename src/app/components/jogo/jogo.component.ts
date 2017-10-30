@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { PanelModule, MenuItem, Message, ConfirmationService, DropdownModule, SelectItem, StepsModule, CheckboxModule, PickListModule } from 'primeng/primeng';
+import {
+  PanelModule, MenuItem, Message, ConfirmationService, DropdownModule, SelectItem,
+  StepsModule, CheckboxModule, PickListModule
+} from 'primeng/primeng';
 import { ModalidadeService } from '../../services/modalidade.service';
 import { FaseService } from '../../services/fase.service';
 import { Modalidade } from '../../models/modalidade';
@@ -8,6 +11,7 @@ import { TimeService } from '../../services/time.service';
 import { Time } from '../../models/time';
 import { JogoService } from '../../services/jogo.service';
 import { Jogo } from '../../models/jogo';
+import { Situacao } from '../../models/situacao';
 
 @Component({
   selector: 'app-jogo',
@@ -25,8 +29,10 @@ export class JogoComponent implements OnInit {
   times: Time[];
   origem: Time[];
   destino: Time[];
+  jogos: Jogo[];
   mostrarTimes: boolean;
   mostrarTabela: boolean;
+  fase: Fase;
 
   constructor(
     private modalidadeSvc: ModalidadeService,
@@ -38,16 +44,16 @@ export class JogoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.items = [];
     this.loadTimes();
   }
 
   private loadTimes() {
+    this.items = [];
     this.times = [];
     this.origem = [];
     this.destino = [];
     this.timeSvc.getTimes().then(times => {
-      this.times = times
+      this.times = times;
     });
   }
 
@@ -64,8 +70,8 @@ export class JogoComponent implements OnInit {
   changeModalidade(e) {
     this.fases = [];
     this.items = [];
-    let id = e.value.id;
-    if (id == null) return;
+    const id = e.value.id;
+    if (id == null) { return; }
 
     this.faseSvc.getFasesByModalidadeId(id).then(fases => {
       this.fases = fases;
@@ -73,26 +79,45 @@ export class JogoComponent implements OnInit {
         this.items.push({ label: fase.nome });
       });
 
-      this.loadJogos();
+      if (this.fases.length > 0) {
+        this.fase = this.fases[0];
+        this.loadJogos();
+      }
     });
   }
 
   loadJogos() {
+    this.jogos = [];
     this.mostrarTimes = false;
     this.mostrarTabela = false;
-    this.jogoSvc.getJogosByFaseId(this.fases[0].id).then(jogos => {
-      if (jogos.length == 0) {
+    this.jogoSvc.getJogosByFase(this.fase).then(jogos => {
+      if (jogos.length === 0) {
         this.origem = [...this.times];
         this.destino = [];
         this.mostrarTimes = true;
       } else {
         this.mostrarTabela = true;
+        this.jogos = jogos;
       }
     });
   }
 
   gravar() {
-    console.log(this.destino);
+    const times = [...this.destino];
+    const situacao: Situacao = new Situacao('', 1);
+    while (times.length > 0) {
+      const jogo: Jogo = new Jogo();
+      jogo.fase = this.fase;
+      jogo.situacao = situacao;
+      jogo.time1 = times.shift();
+      jogo.time2 = times.shift();
+      this.jogos.push(jogo);
+    }
+
+    this.jogoSvc.genJogosByFase(this.fase, this.jogos).then(jogos => {
+      this.mostrarTabela = true;
+      this.jogos = jogos;
+    });
   }
 
   recarregar() {
@@ -101,19 +126,19 @@ export class JogoComponent implements OnInit {
   }
 
   moveToTarget(e) {
-    let items = e.items;
+    const items = e.items;
     let ajustar = false;
 
     while (this.destino.length > 8) {
       ajustar = true;
-      let time = items.pop();
-      let index = this.destino.indexOf(time);
-      this.destino = this.destino.filter((val, i) => i != index);
+      const time = items.pop();
+      const index = this.destino.indexOf(time);
+      this.destino = this.destino.filter((val, i) => i !== index);
     }
 
     if (ajustar) {
       this.origem = [...this.times];
-      this.origem = this.origem.filter((value) => this.destino.indexOf(value) == -1);
+      this.origem = this.origem.filter((value) => this.destino.indexOf(value) === -1);
     }
   }
 

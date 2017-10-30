@@ -14,19 +14,19 @@ export class JogoService extends Base {
     super();
   }
 
-  public getJogosByFaseId(id: number) {
-    return this.http.get(this.getUrlBase().concat(BASE).concat('fase/').concat(String(id)))
+  public getJogosByFase(fase: Fase) {
+    return this.http.get(this.getUrlBase().concat(BASE).concat('fase/').concat(String(fase.id)))
       .toPromise()
       .then(res => {
-        return <Jogo[]>res.json()
+        return <Jogo[]>res.json();
       });
   }
 
-  public genJogosByFase(id: number, jogos: Array<Jogo>) {
-    return this.http.post(this.getUrlBase().concat(BASE).concat('fase/').concat(String(id)), jogos)
+  public genJogosByFase(fase: Fase, jogos: Array<Jogo>) {
+    return this.http.post(this.getUrlBase().concat(BASE).concat('fase/').concat(String(fase.id)), jogos)
       .toPromise()
       .then(res => {
-        return <Jogo[]>res.json()
+        return <Jogo[]>res.json();
       });
   }
 

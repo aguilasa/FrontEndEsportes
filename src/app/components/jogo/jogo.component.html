@@ -19,8 +19,8 @@
         </ng-template>
       </p-pickList>
       <br>
-      <button pButton type="button" icon="fa-close" iconPos="left" label="Recarregar" (click)="recarregar()"></button>
-      <button pButton type="button" icon="fa-check" iconPos="left" label="Gravar" (click)="gravar()" [disabled]="destino.length < 8"></button>
+      <button pButton class="jogo-button" type="button" icon="fa-close" iconPos="left" label="Recarregar" (click)="recarregar()"></button>
+      <button pButton class="jogo-button" type="button" icon="fa-check" iconPos="left" label="Gravar" (click)="gravar()" [disabled]="destino.length < 8"></button>
     </p-panel>
 
     <p-panel header="Tabela" class="container" *ngIf="mostrarTabela">
