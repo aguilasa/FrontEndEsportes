@@ -22,8 +22,8 @@ export class JogoService extends Base {
       });
   }
 
-  public genJogosByFase(id: number) {
-    return this.http.get(this.getUrlBase().concat(BASE).concat('fase/').concat(String(id)))
+  public genJogosByFase(id: number, jogos: Array<Jogo>) {
+    return this.http.post(this.getUrlBase().concat(BASE).concat('fase/').concat(String(id)), jogos)
       .toPromise()
       .then(res => {
         return <Jogo[]>res.json()
