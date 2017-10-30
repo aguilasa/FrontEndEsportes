@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Base } from './base';
 import { Jogo } from '../models/jogo';
+import { Fase } from '../models/fase';
 
 const BASE = 'jogo/';
 
@@ -14,6 +15,14 @@ export class JogoService extends Base {
   }
 
   public getJogosByFaseId(id: number) {
+    return this.http.get(this.getUrlBase().concat(BASE).concat('fase/').concat(String(id)))
+      .toPromise()
+      .then(res => {
+        return <Jogo[]>res.json()
+      });
+  }
+
+  public genJogosByFase(id: number) {
     return this.http.get(this.getUrlBase().concat(BASE).concat('fase/').concat(String(id)))
       .toPromise()
       .then(res => {

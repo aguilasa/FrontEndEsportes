@@ -3,11 +3,12 @@
   <p-dropdown [options]="modalidades" [(ngModel)]="selecionada" placeholder="Selecione uma modalidade" (onChange)="changeModalidade($event)"></p-dropdown>
 
   <div *ngIf="items && items.length > 0">
-    <h3>Fases</h3>
-    <p-steps [model]="items"></p-steps>
+    <p-panel header="Fases" class="container">
+      <p-steps [model]="items"></p-steps>
+    </p-panel>
 
-    <div *ngIf="mostrarTimes">
-      <h3>Times</h3>
+
+    <p-panel header="Times" class="container" *ngIf="mostrarTimes">
       <p-pickList [source]="origem" [target]="destino" sourceHeader="Disponíveis" targetHeader="Selecionados" [responsive]="true"
         [sourceStyle]="{'height':'200px'}" [targetStyle]="{'height':'200px'}" filterBy="nome" [showSourceControls]="false"
         (onMoveToTarget)="moveToTarget($event)">
@@ -20,7 +21,11 @@
       <br>
       <button pButton type="button" icon="fa-close" iconPos="left" label="Recarregar" (click)="recarregar()"></button>
       <button pButton type="button" icon="fa-check" iconPos="left" label="Gravar" (click)="gravar()" [disabled]="destino.length < 8"></button>
-    </div>
+    </p-panel>
+
+    <p-panel header="Tabela" class="container" *ngIf="mostrarTabela">
+
+    </p-panel>
 
   </div>
 </p-panel>

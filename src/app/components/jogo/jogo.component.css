@@ -32,3 +32,7 @@
 div.ui-picklist-target-wrapper div.ui-picklist-filter-container {
     display: none;
 }
+
+.container {
+    padding: 10px;
+}

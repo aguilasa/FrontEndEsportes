@@ -26,6 +26,7 @@ export class JogoComponent implements OnInit {
   origem: Time[];
   destino: Time[];
   mostrarTimes: boolean;
+  mostrarTabela: boolean;
 
   constructor(
     private modalidadeSvc: ModalidadeService,
@@ -78,11 +79,14 @@ export class JogoComponent implements OnInit {
 
   loadJogos() {
     this.mostrarTimes = false;
+    this.mostrarTabela = false;
     this.jogoSvc.getJogosByFaseId(this.fases[0].id).then(jogos => {
       if (jogos.length == 0) {
         this.origem = [...this.times];
         this.destino = [];
         this.mostrarTimes = true;
+      } else {
+        this.mostrarTabela = true;
       }
     });
   }
