@@ -4,7 +4,7 @@
       <button pButton type="button" label="{{jogo.time1.nome}}" class="ui-button-secondary btn-with"></button>
     </div>
     <div>
-      <p-spinner size="3" [(ngModel)]="jogo.placar1" [min]="0" [max]="100"></p-spinner>
+      <p-spinner size="3" [(ngModel)]="jogo.placar1" [min]="0" [max]="100" (onChange)="mudarPlacar()"></p-spinner>
     </div>
     <div *ngIf="futebol">
       <p-spinner size="3" [(ngModel)]="jogo.penalti1" [min]="0" [max]="100"></p-spinner>
@@ -15,7 +15,7 @@
       <button pButton type="button" label="{{jogo.time2.nome}}" class="ui-button-secondary btn-with"></button>
     </div>
     <div>
-      <p-spinner size="3" [(ngModel)]="jogo.placar2" [min]="0" [max]="100"></p-spinner>
+      <p-spinner size="3" [(ngModel)]="jogo.placar2" [min]="0" [max]="100" (onChange)="mudarPlacar()"></p-spinner>
     </div>
     <div *ngIf="futebol">
       <p-spinner size="3" [(ngModel)]="jogo.penalti2" [min]="0" [max]="100"></p-spinner>

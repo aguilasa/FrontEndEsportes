@@ -13,9 +13,17 @@ export class PlacarComponent implements OnInit {
 
   @Input() futebol: boolean;
 
+  empate: boolean;
+
   constructor() { }
 
   ngOnInit() {
+    console.log(this.jogo);
+    console.log(this.futebol);
+  }
+
+  mudarPlacar() {
+
   }
 
 }
