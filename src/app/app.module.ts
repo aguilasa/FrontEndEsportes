@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {
   MenubarModule, MenuItem, PanelModule, InputTextModule, ButtonModule, DataTableModule, DialogModule, GrowlModule, ContextMenuModule,
-  ConfirmDialogModule, DropdownModule, StepsModule, CheckboxModule, PickListModule
+  ConfirmDialogModule, DropdownModule, StepsModule, CheckboxModule, PickListModule, SpinnerModule
 } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
@@ -19,6 +19,7 @@ import { SituacaoComponent } from './components/situacao/situacao.component';
 import { TimeComponent } from './components/time/time.component';
 import { FaseComponent } from './components/fase/fase.component';
 import { JogoComponent } from './components/jogo/jogo.component';
+import { PlacarComponent } from './components/placar/placar.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { JogoComponent } from './components/jogo/jogo.component';
     SituacaoComponent,
     TimeComponent,
     FaseComponent,
-    JogoComponent
+    JogoComponent,
+    PlacarComponent
   ],
   imports: [
     RoutingModule,
@@ -49,7 +51,8 @@ import { JogoComponent } from './components/jogo/jogo.component';
     DropdownModule,
     StepsModule,
     CheckboxModule,
-    PickListModule
+    PickListModule,
+    SpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

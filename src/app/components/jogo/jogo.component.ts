@@ -115,6 +115,7 @@ export class JogoComponent implements OnInit {
     }
 
     this.jogoSvc.genJogosByFase(this.fase, this.jogos).then(jogos => {
+      this.mostrarTimes = false;
       this.mostrarTabela = true;
       this.jogos = jogos;
     });

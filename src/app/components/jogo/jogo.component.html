@@ -24,7 +24,7 @@
     </p-panel>
 
     <p-panel header="Tabela" class="container" *ngIf="mostrarTabela">
-
+      <app-placar *ngFor="let jogo of jogos" [jogo]="jogo"></app-placar>
     </p-panel>
 
   </div>

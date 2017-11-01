@@ -1,0 +1,26 @@
+.ui-placar {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  zoom: 1;
+}
+
+.ui-team div {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.ui-team {
+  margin-bottom: 1px;
+}
+
+.btn-with {
+  width: 200px;
+}
+
+div.score {
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,18 @@
+<div #container [ngClass]="{'ui-placar ui-widget':true,'ui-state-disabled':disabled}">
+  <div class="ui-team">
+    <div class="team">
+      <button pButton type="button" label="{{jogo.time1.nome}}" class="ui-button-secondary btn-with"></button>
+    </div>
+    <div class="score">
+      <p-spinner size="3" [(ngModel)]="jogo.placar1" [min]="0" [max]="100"></p-spinner>
+    </div>
+  </div>
+  <div class="ui-team">
+    <div class="team">
+      <button pButton type="button" label="{{jogo.time2.nome}}" class="ui-button-secondary btn-with"></button>
+    </div>
+    <div class="score">
+      <p-spinner size="3" [(ngModel)]="jogo.placar2" [min]="0" [max]="100"></p-spinner>
+    </div>
+  </div>
+</div>
