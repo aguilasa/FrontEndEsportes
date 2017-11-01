@@ -5,6 +5,10 @@
   zoom: 1;
 }
 
+.mb {
+  margin-bottom: 10px;
+}
+
 .ui-team div {
   padding: 0;
   margin: 0;
@@ -18,9 +22,4 @@
 
 .btn-with {
   width: 200px;
-}
-
-div.score {
-  margin: 0;
-  padding: 0;
 }

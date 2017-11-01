@@ -17,12 +17,13 @@ export class ModalidadeComponent implements OnInit {
   modalidade: Modalidade = new Modalidade();
   selecionado: Modalidade;
   novoModalidade: boolean;
+  futebol: boolean;
 
   constructor(private modalidadeSvc: ModalidadeService, private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.modalidadeSvc.getModalidades().then(modalidades => {
-      this.modalidades = modalidades
+      this.modalidades = modalidades;
     });
 
     this.items = [
@@ -38,7 +39,7 @@ export class ModalidadeComponent implements OnInit {
   }
 
   salvar() {
-    let modalidades = [...this.modalidades];
+    const modalidades = [...this.modalidades];
 
     if (this.novoModalidade) {
       this.modalidadeSvc.addModalidade(this.modalidade).then(res => {
@@ -46,10 +47,9 @@ export class ModalidadeComponent implements OnInit {
         modalidades.push(this.modalidade);
         this.finalizar(modalidades);
       });
-    }
-    else {
+    } else {
       this.modalidadeSvc.updModalidade(this.modalidade).then(res => {
-        let index = this.procurarModalidadeSelecionado();
+        const index = this.procurarModalidadeSelecionado();
         this.modalidade = res;
         modalidades[index] = this.modalidade;
         this.finalizar(modalidades);
@@ -65,8 +65,8 @@ export class ModalidadeComponent implements OnInit {
 
   deletar() {
     this.modalidadeSvc.delModalidade(this.selecionado).then(() => {
-      let index = this.procurarModalidadeSelecionado();
-      this.modalidades = this.modalidades.filter((val, i) => i != index);
+      const index = this.procurarModalidadeSelecionado();
+      this.modalidades = this.modalidades.filter((val, i) => i !== index);
       this.modalidade = null;
       this.mostrarDialogo = false;
     });
@@ -85,18 +85,27 @@ export class ModalidadeComponent implements OnInit {
     this.mostrar(event.data);
   }
 
+  changeFutebol() {
+    this.modalidade.futebol = this.futebol ? 1 : 0;
+  }
+
+  setarFutebol(modalidade: Modalidade) {
+    this.futebol = modalidade.futebol === 1;
+  }
+
   setarModalidade(modalidade: Modalidade) {
     this.novoModalidade = false;
     this.modalidade = this.clonarModalidade(modalidade);
   }
 
   mostrar(modalidade: Modalidade) {
+    this.setarFutebol(modalidade);
     this.setarModalidade(modalidade);
     this.mostrarDialogo = true;
   }
 
   clonarModalidade(t: Modalidade): Modalidade {
-    let modalidade = new Modalidade();
+    const modalidade = new Modalidade();
     for (let prop in t) {
       modalidade[prop] = t[prop];
     }

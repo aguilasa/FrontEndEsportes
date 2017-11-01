@@ -21,6 +21,17 @@
           <input pInputText id="nome" [(ngModel)]="modalidade.nome" />
         </div>
       </div>
+
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+          <label for="nome">&nbsp;</label>
+        </div>
+        <div class="ui-grid-col-8">
+          <p-checkbox [(ngModel)]="futebol" binary="true" label="Futebol" (onChange)="changeFutebol()"></p-checkbox>
+        </div>
+      </div>
+
+      
     </div>
     <p-footer>
       <div class="ui-dialog-buttonpane ui-helper-clearfix">
