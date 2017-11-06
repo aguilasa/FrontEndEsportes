@@ -7,7 +7,6 @@
       <p-steps [model]="items" [(activeIndex)]="indice" [readonly]="false"></p-steps>
     </p-panel>
 
-
     <p-panel header="Times" class="container" *ngIf="mostrarTimes">
       <p-pickList [source]="origem" [target]="destino" sourceHeader="Disponíveis" targetHeader="Selecionados" [responsive]="true"
         [sourceStyle]="{'height':'200px'}" [targetStyle]="{'height':'200px'}" filterBy="nome" [showSourceControls]="false"

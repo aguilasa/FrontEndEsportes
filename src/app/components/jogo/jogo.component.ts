@@ -91,16 +91,28 @@ export class JogoComponent implements OnInit {
     this.jogos = [];
     this.mostrarTimes = false;
     this.mostrarTabela = false;
-    this.jogoSvc.getJogosByFase(this.fase).then(jogos => {
+    this.jogoSvc.getJogosByModalidade(this.selecionada).then(jogos => {
       if (jogos.length === 0) {
         this.origem = [...this.times];
         this.destino = [];
         this.mostrarTimes = true;
       } else {
         this.mostrarTabela = true;
+
+        for (let i = 4; i < 8; i++) {
+          const jogo = jogos[i];
+          if (jogo.time1 === null) {
+            this.gerarTimes(jogo, i, jogos);
+          }
+        }
+
         this.jogos = jogos;
       }
     });
+  }
+
+  private gerarTimes(jogo: Jogo, indice: number, jogos: Jogo[]) {
+
   }
 
   gravar() {
