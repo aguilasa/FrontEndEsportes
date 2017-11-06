@@ -4,6 +4,7 @@ import 'rxjs/add/operator/toPromise';
 import { Base } from './base';
 import { Jogo } from '../models/jogo';
 import { Fase } from '../models/fase';
+import { Modalidade } from '../models/modalidade';
 
 const BASE = 'jogo/';
 
@@ -22,8 +23,8 @@ export class JogoService extends Base {
       });
   }
 
-  public genJogosByFase(fase: Fase, jogos: Array<Jogo>) {
-    return this.http.post(this.getUrlBase().concat(BASE).concat('fase/').concat(String(fase.id)), jogos)
+  public genJogosByModalidade(modalidade: Modalidade, jogos: Array<Jogo>) {
+    return this.http.post(this.getUrlBase().concat(BASE).concat('modalidade/').concat(String(modalidade.id)), jogos)
       .toPromise()
       .then(res => {
         return <Jogo[]>res.json();

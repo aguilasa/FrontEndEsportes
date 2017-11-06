@@ -106,6 +106,7 @@ export class JogoComponent implements OnInit {
   gravar() {
     const times = [...this.destino];
     const situacao: Situacao = new Situacao('', 1);
+    this.jogos = [];
     while (times.length > 0) {
       const jogo: Jogo = new Jogo();
       jogo.fase = this.fase;
@@ -115,7 +116,7 @@ export class JogoComponent implements OnInit {
       this.jogos.push(jogo);
     }
 
-    this.jogoSvc.genJogosByFase(this.fase, this.jogos).then(jogos => {
+    this.jogoSvc.genJogosByModalidade(this.selecionada, this.jogos).then(jogos => {
       this.mostrarTimes = false;
       this.mostrarTabela = true;
       this.jogos = jogos;
