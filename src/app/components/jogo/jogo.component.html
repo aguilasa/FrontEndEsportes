@@ -4,7 +4,7 @@
 
   <div *ngIf="items && items.length > 0">
     <p-panel header="Fases" class="container">
-      <p-steps [model]="items"></p-steps>
+      <p-steps [model]="items" [(activeIndex)]="indice" [readonly]="false"></p-steps>
     </p-panel>
 
 

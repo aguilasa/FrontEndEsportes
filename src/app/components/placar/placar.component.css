@@ -9,7 +9,7 @@
   margin-bottom: 10px;
 }
 
-.ui-team div {
+.ui-team div, .in {
   padding: 0;
   margin: 0;
   display: inline-block;
@@ -22,4 +22,8 @@
 
 .btn-with {
   width: 200px;
+}
+
+.lbl {
+  width: 60px;
 }

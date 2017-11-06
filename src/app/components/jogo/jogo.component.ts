@@ -33,6 +33,7 @@ export class JogoComponent implements OnInit {
   mostrarTimes: boolean;
   mostrarTabela: boolean;
   fase: Fase;
+  indice: number = 0;
 
   constructor(
     private modalidadeSvc: ModalidadeService,
