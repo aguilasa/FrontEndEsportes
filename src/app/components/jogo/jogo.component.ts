@@ -32,6 +32,7 @@ export class JogoComponent implements OnInit {
   mostrarTimes: boolean;
   mostrarTabela: boolean;
   indice: number = 0;
+  menuTabelas: MenuItem[];
 
   constructor(
     private modalidadeSvc: ModalidadeService,
@@ -43,6 +44,13 @@ export class JogoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.menuTabelas = [
+      {
+        label: 'Regarregar Jogos', icon: 'fa-refresh', command: () => {
+          this.loadJogos();
+        }
+      }
+    ];
     this.loadTimes();
   }
 
@@ -186,6 +194,10 @@ export class JogoComponent implements OnInit {
       this.origem = [...this.times];
       this.origem = this.origem.filter((value) => this.destino.indexOf(value) === -1);
     }
+  }
+
+  finalizar() {
+
   }
 
 }

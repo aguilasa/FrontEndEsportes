@@ -22,9 +22,18 @@
       <button pButton class="jogo-button" type="button" icon="fa-check" iconPos="left" label="Gravar" (click)="gravar()" [disabled]="destino.length < 8"></button>
     </p-panel>
 
-    <p-panel header="Tabela" class="container" *ngIf="mostrarTabela">
+    <p-panel class="container" *ngIf="mostrarTabela">
+
+      <p-header>
+        <div class="ui-helper-clearfix">
+          <span class="ui-panel-title" style="display:inline-block;margin-top:.4em">Tabela</span>
+
+          <p-splitButton [style]="{'float':'right'}" label="Finalizar Jogos" icon="fa-check" (onClick)="finalizar()" [model]="menuTabelas"></p-splitButton>
+        </div>
+      </p-header>
+
       <div *ngFor="let jogo of fases[indice].jogos" class="mb">
-        <app-placar [jogo]="jogo" [futebol]="selecionada.futebol === 1"></app-placar>
+        <app-placar [jogo]="jogo" [alterou]="false" [futebol]="selecionada.futebol === 1"></app-placar>
       </div>
     </p-panel>
 

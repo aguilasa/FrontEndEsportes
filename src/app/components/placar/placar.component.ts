@@ -15,6 +15,8 @@ export class PlacarComponent implements OnInit {
 
   @Input() empate: boolean;
 
+  @Input() alterou: boolean;
+
   constructor() { }
 
   ngOnInit() {
@@ -22,6 +24,8 @@ export class PlacarComponent implements OnInit {
   }
 
   mudarPlacarUm() {
+    this.alterou = true;
+
     if (this.jogo.placar1 === null) {
       this.jogo.placar1 = 0;
     }
@@ -32,6 +36,7 @@ export class PlacarComponent implements OnInit {
   }
 
   mudarPlacarDois() {
+    this.alterou = true;
     if (this.jogo.placar2 === null) {
       this.jogo.placar2 = 0;
     }
@@ -42,18 +47,21 @@ export class PlacarComponent implements OnInit {
   }
 
   mudarPenaltiUm() {
+    this.alterou = true;
     if (this.jogo.penalti1 === null) {
       this.jogo.penalti1 = 0;
     }
   }
 
   mudarPenaltiDois() {
+    this.alterou = true;
     if (this.jogo.penalti2 === null) {
       this.jogo.penalti2 = 0;
     }
   }
 
   mudarEmpate() {
+    this.alterou = true;
     this.mudarPlacarUm();
   }
 

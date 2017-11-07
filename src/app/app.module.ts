@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {
   MenubarModule, MenuItem, PanelModule, InputTextModule, ButtonModule, DataTableModule, DialogModule, GrowlModule, ContextMenuModule,
-  ConfirmDialogModule, DropdownModule, StepsModule, CheckboxModule, PickListModule, SpinnerModule
+  ConfirmDialogModule, DropdownModule, StepsModule, CheckboxModule, PickListModule, SpinnerModule, SplitButtonModule
 } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
@@ -52,7 +52,8 @@ import { PlacarComponent } from './components/placar/placar.component';
     StepsModule,
     CheckboxModule,
     PickListModule,
-    SpinnerModule
+    SpinnerModule,
+    SplitButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
