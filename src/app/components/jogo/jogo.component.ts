@@ -210,4 +210,8 @@ export class JogoComponent implements OnInit, AfterViewInit {
     })
   }
 
+  activeIndexChange(e) {
+    console.log(e);
+  }
+
 }

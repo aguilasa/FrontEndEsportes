@@ -36,7 +36,7 @@ export class PlacarComponent implements OnInit {
     if (this.empate) {
       this.jogo.placar2 = this.jogo.placar1;
     }
-
+    this.validar();
   }
 
   mudarPlacarDois() {
@@ -78,7 +78,7 @@ export class PlacarComponent implements OnInit {
     if (this.futebol) {
       this.valido = this.jogo.placar1 != this.jogo.placar2 || (this.empate && this.jogo.penalti1 != this.jogo.penalti2);
     } else {
-
+      this.valido = this.jogo.placar1 != this.jogo.placar2 && ((this.jogo.placar1 + this.jogo.placar2) === 3 || (this.jogo.placar1 + this.jogo.placar2) === 2)
     }
   }
 
