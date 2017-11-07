@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import {
   PanelModule, MenuItem, Message, ConfirmationService, DropdownModule, SelectItem,
   StepsModule, CheckboxModule, PickListModule
@@ -12,6 +12,7 @@ import { Time } from '../../models/time';
 import { JogoService } from '../../services/jogo.service';
 import { Jogo } from '../../models/jogo';
 import { Situacao } from '../../models/situacao';
+import { PlacarComponent } from '../placar/placar.component';
 
 @Component({
   selector: 'app-jogo',
@@ -20,7 +21,7 @@ import { Situacao } from '../../models/situacao';
   providers: [ModalidadeService, FaseService, TimeService, JogoService, ConfirmationService],
   encapsulation: ViewEncapsulation.None
 })
-export class JogoComponent implements OnInit {
+export class JogoComponent implements OnInit, AfterViewInit {
 
   modalidades: SelectItem[];
   selecionada: Modalidade;
@@ -34,6 +35,8 @@ export class JogoComponent implements OnInit {
   indice: number = 0;
   menuTabelas: MenuItem[];
 
+  @ViewChildren('placar') placares: QueryList<PlacarComponent>;
+
   constructor(
     private modalidadeSvc: ModalidadeService,
     private faseSvc: FaseService,
@@ -41,6 +44,10 @@ export class JogoComponent implements OnInit {
     private timeSvc: TimeService,
     private jogoSvc: JogoService) {
     this.loadModalidades();
+  }
+
+  ngAfterViewInit() {
+
   }
 
   ngOnInit() {
@@ -197,7 +204,10 @@ export class JogoComponent implements OnInit {
   }
 
   finalizar() {
-
+    this.placares.map((placar) => {
+      console.log(placar);
+      console.log(placar.valido);
+    })
   }
 
 }
