@@ -23,7 +23,7 @@
     </p-panel>
 
     <p-panel header="Tabela" class="container" *ngIf="mostrarTabela">
-      <div *ngFor="let jogo of jogos" class="mb">
+      <div *ngFor="let jogo of fases[indice].jogos" class="mb">
         <app-placar [jogo]="jogo" [futebol]="selecionada.futebol === 1"></app-placar>
       </div>
     </p-panel>

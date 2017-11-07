@@ -29,10 +29,8 @@ export class JogoComponent implements OnInit {
   times: Time[];
   origem: Time[];
   destino: Time[];
-  jogos: Jogo[];
   mostrarTimes: boolean;
   mostrarTabela: boolean;
-  fase: Fase;
   indice: number = 0;
 
   constructor(
@@ -81,14 +79,17 @@ export class JogoComponent implements OnInit {
       });
 
       if (this.fases.length > 0) {
-        this.fase = this.fases[0];
         this.loadJogos();
       }
     });
   }
 
+  private resetJogos() {
+    this.fases.map((fase) => fase.jogos = []);
+  }
+
   loadJogos() {
-    this.jogos = [];
+    this.resetJogos();
     this.mostrarTimes = false;
     this.mostrarTabela = false;
     this.jogoSvc.getJogosByModalidade(this.selecionada).then(jogos => {
@@ -98,40 +99,70 @@ export class JogoComponent implements OnInit {
         this.mostrarTimes = true;
       } else {
         this.mostrarTabela = true;
-
-        for (let i = 4; i < 8; i++) {
-          const jogo = jogos[i];
-          if (jogo.time1 === null) {
-            this.gerarTimes(jogo, i, jogos);
-          }
-        }
-
-        this.jogos = jogos;
+        this.ajustarJogos(jogos);
       }
     });
   }
 
-  private gerarTimes(jogo: Jogo, indice: number, jogos: Jogo[]) {
+  private ajustarJogos(jogos: Jogo[]) {
+    jogos.map((jogo, i) => {
+      let fase: Fase = this.findFase(jogo.fase.id);
+      fase.jogos.push(jogo);
+      if (!jogo.time1) {
+        this.gerarTimes(jogo, i);
+      }
+    });
+  }
 
+  private findFase(id: number) {
+    for (let i = 0; i < this.fases.length; i++) {
+      if (this.fases[i].id === id) {
+        return this.fases[i];
+      }
+    }
+    return undefined;
+  }
+
+  private gerarTimes(jogo: Jogo, indice: number) {
+    jogo.time1 = new Time();
+    jogo.time2 = new Time();
+
+    switch (indice) {
+      case 4:
+        jogo.time1.nome = 'Venc. Jogo 1';
+        jogo.time2.nome = 'Venc. Jogo 2';
+        break;
+      case 5:
+        jogo.time1.nome = 'Venc. Jogo 3';
+        jogo.time2.nome = 'Venc. Jogo 4';
+        break;
+      case 6:
+        jogo.time1.nome = 'Perd. Jogo 4';
+        jogo.time2.nome = 'Perd. Jogo 5';
+        break;
+      case 7:
+        jogo.time1.nome = 'Venc. Jogo 4';
+        jogo.time2.nome = 'Venc. Jogo 5';
+        break;
+    }
   }
 
   gravar() {
     const times = [...this.destino];
     const situacao: Situacao = new Situacao('', 1);
-    this.jogos = [];
+    const novos: Array<Jogo> = [];
     while (times.length > 0) {
       const jogo: Jogo = new Jogo();
-      jogo.fase = this.fase;
       jogo.situacao = situacao;
       jogo.time1 = times.shift();
       jogo.time2 = times.shift();
-      this.jogos.push(jogo);
+      novos.push(jogo);
     }
 
-    this.jogoSvc.genJogosByModalidade(this.selecionada, this.jogos).then(jogos => {
+    this.jogoSvc.genJogosByModalidade(this.selecionada, novos).then(jogos => {
       this.mostrarTimes = false;
       this.mostrarTabela = true;
-      this.jogos = jogos;
+      this.ajustarJogos(jogos);
     });
   }
 
