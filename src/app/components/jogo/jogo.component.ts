@@ -53,6 +53,11 @@ export class JogoComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.menuTabelas = [
       {
+        label: 'Finalizar Jogos', icon: 'fa-check', command: () => {
+          this.finalizar();
+        }
+      },
+      {
         label: 'Regarregar Jogos', icon: 'fa-refresh', command: () => {
           this.loadJogos();
         }
@@ -141,6 +146,7 @@ export class JogoComponent implements OnInit, AfterViewInit {
   private gerarTimes(jogo: Jogo, indice: number) {
     jogo.time1 = new Time();
     jogo.time2 = new Time();
+    jogo.time1.id = jogo.time2.id = -1;
 
     switch (indice) {
       case 4:
@@ -204,6 +210,13 @@ export class JogoComponent implements OnInit, AfterViewInit {
   }
 
   finalizar() {
+    this.placares.map((placar) => {
+      console.log(placar);
+      console.log(placar.valido);
+    })
+  }
+
+  atualizar() {
     this.placares.map((placar) => {
       console.log(placar);
       console.log(placar.valido);
