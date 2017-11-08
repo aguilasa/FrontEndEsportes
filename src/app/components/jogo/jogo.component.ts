@@ -126,7 +126,7 @@ export class JogoComponent implements OnInit, AfterViewInit {
 
   private ajustarJogos(jogos: Jogo[]) {
     jogos.map((jogo, i) => {
-      let fase: Fase = this.findFase(jogo.fase.id);
+      const fase: Fase = this.findFase(jogo.fase.id);
       fase.jogos.push(jogo);
       if (!jogo.time1) {
         this.gerarTimes(jogo, i);

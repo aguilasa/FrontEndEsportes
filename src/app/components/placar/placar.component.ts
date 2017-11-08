@@ -19,6 +19,8 @@ export class PlacarComponent implements OnInit {
 
   @Input() valido: boolean;
 
+  @Input() disabled: boolean;
+
   constructor() { }
 
   ngOnInit() {
