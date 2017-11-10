@@ -28,8 +28,8 @@
       </div>
     </div>
     <div *ngIf="!disabled" class="width-200px">
-      <button pButton type="button" label="Atualizar" [disabled]="!valido" class="btn-width-50"></button>
-      <button pButton type="button" label="Finalizar" [disabled]="!valido" class="btn-width-50"></button>
+      <button pButton type="button" label="Atualizar" (click)="clickAtualizar()" [disabled]="!valido" class="btn-width-50"></button>
+      <button pButton type="button" label="Finalizar" (click)="clickFinalizar()" [disabled]="!valido" class="btn-width-50"></button>
     </div>
   </div>
 </div>

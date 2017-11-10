@@ -32,7 +32,8 @@
       </p-header>
 
       <div *ngFor="let jogo of fases[indice].jogos" class="mb">
-        <app-placar [jogo]="jogo" [alterou]="false" [futebol]="selecionada.futebol === 1"  [disabled]="jogo.situacao.id === 2" #placar></app-placar>
+        <app-placar [jogo]="jogo" [alterou]="false" [futebol]="selecionada.futebol === 1" [disabled]="jogo.situacao.id === 2" (onClickAtualizar)="atualizarJogo(jogo)"
+          (onClickFinalizar)="finalizarJogo(jogo)" #placar></app-placar>
       </div>
     </p-panel>
 

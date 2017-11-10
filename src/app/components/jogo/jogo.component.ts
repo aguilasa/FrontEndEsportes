@@ -227,4 +227,12 @@ export class JogoComponent implements OnInit, AfterViewInit {
     console.log(e);
   }
 
+  atualizarJogo(jogo: Jogo) {
+    console.log('atualizar: ' + jogo.fase.nome);
+  }
+
+  finalizarJogo(jogo: Jogo) {
+    console.log('finalizar: ' + jogo.fase.nome);
+  }
+
 }

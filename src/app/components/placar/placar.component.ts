@@ -21,6 +21,10 @@ export class PlacarComponent implements OnInit {
 
   @Input() disabled: boolean;
 
+  @Output() onClickAtualizar: EventEmitter<Jogo> = new EventEmitter();
+
+  @Output() onClickFinalizar: EventEmitter<Jogo> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
@@ -82,6 +86,14 @@ export class PlacarComponent implements OnInit {
     } else {
       this.valido = this.jogo.placar1 != this.jogo.placar2 && ((this.jogo.placar1 + this.jogo.placar2) === 3 || (this.jogo.placar1 + this.jogo.placar2) === 2)
     }
+  }
+
+  clickAtualizar() {
+    this.onClickAtualizar.emit();
+  }
+
+  clickFinalizar() {
+    this.onClickFinalizar.emit();
   }
 
 }
