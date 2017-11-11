@@ -1,4 +1,4 @@
-import { NgModule, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NgModule, Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 
 import { Jogo } from '../../models/jogo';
 
@@ -7,29 +7,29 @@ import { Jogo } from '../../models/jogo';
   templateUrl: './placar.component.html',
   styleUrls: ['./placar.component.css']
 })
-export class PlacarComponent implements OnInit {
+export class PlacarComponent implements OnInit, AfterViewInit {
+
+  empate: boolean;
+  maxUm: number;
+  maxDois: number;
 
   @Input() jogo: Jogo;
-
   @Input() futebol: boolean;
-
-  @Input() empate: boolean;
-
   @Input() alterou: boolean;
-
   @Input() valido: boolean;
-
   @Input() disabled: boolean;
-
   @Output() onClickAtualizar: EventEmitter<Jogo> = new EventEmitter();
-
   @Output() onClickFinalizar: EventEmitter<Jogo> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
-    this.valido = false;
-    this.empate = false;
+    this.validar();
+    this.maximos();
+  }
+
+  ngAfterViewInit() {
+
   }
 
   mudarPlacarUm() {
@@ -39,9 +39,13 @@ export class PlacarComponent implements OnInit {
       this.jogo.placar1 = 0;
     }
 
-    if (this.empate) {
-      this.jogo.placar2 = this.jogo.placar1;
+    if (!this.futebol) {
+      this.maxDois = 2;
+      if (this.jogo.placar1 == 2) {
+        this.maxDois = 1;
+      }
     }
+
     this.validar();
   }
 
@@ -51,9 +55,13 @@ export class PlacarComponent implements OnInit {
       this.jogo.placar2 = 0;
     }
 
-    if (this.empate) {
-      this.jogo.placar1 = this.jogo.placar2;
+    if (!this.futebol) {
+      this.maxUm = 2;
+      if (this.jogo.placar2 == 2) {
+        this.maxUm = 1;
+      }
     }
+
     this.validar();
   }
 
@@ -73,20 +81,35 @@ export class PlacarComponent implements OnInit {
     this.validar();
   }
 
-  mudarEmpate() {
-    this.alterou = true;
-    this.mudarPlacarUm();
-    this.validar();
-  }
-
   validar() {
     this.valido = true;
+    this.empatado();
     if (this.futebol) {
       this.valido = this.jogo.placar1 !== this.jogo.placar2 || (this.empate && this.jogo.penalti1 !== this.jogo.penalti2);
     } else {
       this.valido = this.jogo.placar1 !== this.jogo.placar2
         && ((this.jogo.placar1 + this.jogo.placar2) === 3 || (this.jogo.placar1 + this.jogo.placar2) === 2);
     }
+  }
+
+  private maximos() {
+    this.maxUm = this.maxDois = 100;
+
+    if (!this.futebol) {
+      this.maxUm = this.maxDois = 2;
+
+      if (this.jogo.placar1 == 2) {
+        this.maxDois = 1;
+      }
+
+      if (this.jogo.placar2 == 2) {
+        this.maxUm = 1;
+      }
+    }
+  }
+
+  private empatado() {
+    this.empate = this.jogo.placar1 === this.jogo.placar2;
   }
 
   clickAtualizar() {

@@ -39,4 +39,22 @@ export class JogoService extends Base {
       });
   }
 
+  public addJogo(jogo: Jogo) {
+    return this.http.post(this.getUrlBase().concat(BASE), jogo)
+      .toPromise()
+      .then(res => <Jogo>res.json());
+  }
+
+  public updJogo(jogo: Jogo) {
+    return this.http.put(this.getUrlBase().concat(BASE).concat(String(jogo.id)), jogo)
+      .toPromise()
+      .then(res => <Jogo>res.json());
+  }
+
+  public delJogo(jogo: Jogo) {
+    return this.http.delete(this.getUrlBase().concat(BASE).concat(String(jogo.id)))
+      .toPromise()
+      .then();
+  }
+
 }

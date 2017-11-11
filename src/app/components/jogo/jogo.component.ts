@@ -228,7 +228,9 @@ export class JogoComponent implements OnInit, AfterViewInit {
   }
 
   atualizarJogo(jogo: Jogo) {
-    console.log('atualizar: ' + jogo.fase.nome);
+    this.jogoSvc.updJogo(jogo).then(jogo => {
+      console.log('atualizar: ' + jogo.id);
+    });
   }
 
   finalizarJogo(jogo: Jogo) {
