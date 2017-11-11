@@ -57,4 +57,10 @@ export class JogoService extends Base {
       .then();
   }
 
+  public finJogo(jogo: Jogo) {
+    return this.http.put(this.getUrlBase().concat(BASE).concat('finalizar/').concat(String(jogo.id)), jogo)
+      .toPromise()
+      .then(res => <Jogo>res.json());
+  }
+
 }

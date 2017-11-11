@@ -227,14 +227,26 @@ export class JogoComponent implements OnInit, AfterViewInit {
     console.log(e);
   }
 
+  private limparPenaltis(jogo: Jogo) {
+    if (jogo.placar1 !== jogo.placar2) {
+      jogo.penalti1 = jogo.penalti2 = 0;
+    }
+  }
+
   atualizarJogo(jogo: Jogo) {
+    this.limparPenaltis(jogo);
+
     this.jogoSvc.updJogo(jogo).then(jogo => {
       console.log('atualizar: ' + jogo.id);
     });
   }
 
   finalizarJogo(jogo: Jogo) {
-    console.log('finalizar: ' + jogo.fase.nome);
+    this.limparPenaltis(jogo);
+
+    this.jogoSvc.finJogo(jogo).then(jogo => {
+      console.log('finalizar: ' + jogo.id);
+    });
   }
 
 }
